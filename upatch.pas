@@ -23,6 +23,7 @@ type
 var
   PatchData: array of TPatchData;
   ID_glDrawElements: integer;
+  ID_glTexImage2D: integer;
 
 procedure InitPatches;
 
@@ -89,6 +90,7 @@ end;
 procedure InitPatches;
 begin          
   ID_glDrawElements := InitPatch( openGL32, 'glDrawElements', @new_glDrawElements );
+  ID_glTexImage2D := InitPatch( openGL32, 'glTexImage2D', @new_glTexImage2D );
 end;
 
 end.

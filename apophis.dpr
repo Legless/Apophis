@@ -3,7 +3,9 @@ library apophis;
 uses
   Windows,
   upatch in 'upatch.pas',
-  uhooks in 'uhooks.pas';
+  uhooks in 'uhooks.pas',
+  uhash in 'uhash.pas',
+  uwallhack in 'uwallhack.pas';
 
 procedure DLLEntryPoint(dwReason: DWORD);
 begin
