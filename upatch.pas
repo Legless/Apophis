@@ -24,6 +24,8 @@ var
   PatchData: array of TPatchData;
   ID_glDrawElements: integer;
   ID_glTexImage2D: integer;
+  ID_SwapBuffers: integer;
+  ID_DefWindowProc: integer;
 
 procedure InitPatches;
 
@@ -34,7 +36,7 @@ function InitPatch( aModule: PChar; aFunc: PChar; aHook: pointer ): integer;
 
 implementation
 
-uses uhooks;
+uses uhooks, uwallhack, ugui, uinput;
                 
 procedure PatchSetJmp( FuncAddr: Pointer; NewData: TJmpRec );
 var
@@ -46,7 +48,7 @@ begin
   finally
     VirtualProtect( FuncAddr, SizeOf( TJmpRec ), OldProtect, OldProtect );
     FlushInstructionCache( GetCurrentProcess, FuncAddr, SizeOf( TJmpRec ) );
-  end;
+  end;                   
 end;
 
 procedure PatchLockJmp( FuncAddr: Pointer; NewData: Word );
@@ -88,9 +90,11 @@ begin
 end;
 
 procedure InitPatches;
-begin          
-  ID_glDrawElements := InitPatch( openGL32, 'glDrawElements', @new_glDrawElements );
-  ID_glTexImage2D := InitPatch( openGL32, 'glTexImage2D', @new_glTexImage2D );
+begin                                                         
+  ID_glDrawElements := InitPatch( openGL32, 'glDrawElements', @ new_glDrawElements );
+  ID_glTexImage2D   := InitPatch( openGL32, 'glTexImage2D',   @ new_glTexImage2D   );
+  ID_SwapBuffers    := InitPatch(    gdi32, 'SwapBuffers',    @ new_SwapBuffers    );
+  ID_DefWindowProc  := InitPatch(   user32, 'DefWindowProcA', @ new_DefWindowProc  );
 end;
 
 end.
