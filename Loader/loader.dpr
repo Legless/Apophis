@@ -9,6 +9,8 @@ uses
   uinject in 'uinject.pas',
   uutils in 'uutils.pas';
 
+{$R loader.res}
+
 begin
   CreateMainWindow;
   wnd_loop;
