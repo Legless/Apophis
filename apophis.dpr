@@ -10,7 +10,8 @@ uses
   uinput in 'uinput.pas',
   ustrings in 'ustrings.pas',
   uopengl in 'uopengl.pas',
-  uutils in 'uutils.pas';
+  uutils in 'uutils.pas',
+  uconfig in 'uconfig.pas';
 
 procedure DLLEntryPoint(dwReason: DWORD);
 begin

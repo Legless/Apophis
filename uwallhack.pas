@@ -12,14 +12,14 @@ const
 
   WH_MODE_COUNT = 3;
   WH_OFF = -1;
-  WH_MODES: array[ 0..WH_MODE_COUNT ] of integer = ( WH_OFF, GL_POINTS, GL_LINES, GL_TRIANGLES );
+  WH_MODES: array[ 0..WH_MODE_COUNT ] of integer = ( WH_OFF, GL_POINTS, GL_LINE_LOOP, GL_TRIANGLES );
 
 var
   KEEL_IDs: array[ 0..KEEL_TEX-1 ] of integer;
   PROJ_IDs: array[ 0..PROJ_COUNT-1 ] of integer;
   
   wh_Mode: integer = 0;
-  wh_affectProj: boolean = true;  
+  wh_affectProj: boolean = true;
 
 procedure glDrawElements( mode: DWORD; count: integer; _type: DWORD; const indices: pointer ); stdcall; external opengl32;   
 procedure new_glDrawElements( mode: DWORD; count: integer; _type: DWORD; const indices: pointer ); stdcall;      
@@ -37,8 +37,6 @@ var
 begin
   PatchLockJmp( PatchData[ ID_glDrawElements ].FuncAddr, PatchData[ ID_glDrawElements ].LockJmp );
   try
-    glDrawElements( mode, count, _type, indices );
-
     isEnemy := false;
     isProj := false;
 
@@ -54,10 +52,12 @@ begin
     // wallhack
     if ( wh_Mode <> WH_OFF ) then
       if ( ( isEnemy ) or ( isProj and wh_affectProj ) ) then begin
-        glDisable( GL_DEPTH_TEST );
+        glDisable( GL_DEPTH_TEST );  
         glDrawElements( WH_MODES[ wh_Mode ], count, _type, indices );
         glEnable( GL_DEPTH_TEST );
       end;
+
+    glDrawElements( mode, count, _type, indices );
   finally
     PatchLockJmp( PatchData[ ID_glDrawElements ].FuncAddr, OPCODE_JMP );
   end;

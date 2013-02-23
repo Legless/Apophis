@@ -15,7 +15,7 @@ var
 
 implementation
 
-uses upatch, uinput, uopengl, uwallhack, ustrings;
+uses upatch, uinput, uopengl, uwallhack, ustrings, uutils, uconfig;
 
 procedure gui_start;
 begin
@@ -40,7 +40,7 @@ begin
     textOut( 8, 16, 'Press [ Del ] to draw status. ' );
 
     if drawGui then begin
-      textOut( 0, 100, '[ Ins ] WH: ' + WH_MODE_NAMES[ wh_mode ] );
+      cfg.Draw;
     end;
        
     gui_finish;
