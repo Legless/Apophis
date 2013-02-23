@@ -41,8 +41,8 @@ uses uutils, ustrings, uopengl, uwallhack;
         
 constructor TConfig.Create;
 begin
-  Self.AddVar( 'Wallhack'      , @wh_Mode      , vtInt , @WH_MODE_NAMES, WH_MODE_COUNT );
-  Self.AddVar( 'Projectiles WH', @wh_affectProj, vtBool );
+  Self.AddVar( 'Wallhack', @wh_Mode      , vtInt, @WH_MODE_NAMES , WH_MODE_COUNT       );
+  Self.AddVar( 'WH Color', @wh_EnemyColor, vtInt, @WH_COLOR_NAMES, WH_COLORS_COUNT - 1 );
 end;
 
 procedure TConfig.Next;
