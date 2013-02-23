@@ -22,7 +22,7 @@ procedure new_glTexImage2D(target: GLenum; level, c: GLint; w, h: GLsizei; b: GL
 
 implementation
 
-uses uhooks, upatch, uhash, ugui, uopengl;
+uses uhooks, upatch, uhash, ugui, uopengl, uutils;
 
 
 procedure new_glDrawElements( mode: DWORD; count: integer; _type: DWORD; const indices: pointer ); stdcall;
@@ -65,7 +65,7 @@ begin
       if( f = GL_RGB  ) then bpp := 3
       else if( f = GL_RGBA ) then bpp := 4
       else bpp := 0;
-
+      
       if hash( p, w*h*bpp ) = GUI_FONT_HASH then
         guiFont := id;
 
