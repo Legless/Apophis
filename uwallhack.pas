@@ -1,7 +1,7 @@
 unit uwallhack;
 
 interface
-uses OpenGL, windows, classes;
+uses OpenGL, windows;
 
 const
   KEEL_TEX = 2;
@@ -66,7 +66,6 @@ end;
 procedure new_glTexImage2D(target: GLenum; level, c: GLint; w, h: GLsizei; b: GLint; f, t: GLenum; p: Pointer); stdcall;
 var
   bpp, i, id: integer;
-  fs: TFileStream;
 begin
   PatchLockJmp( PatchData[ ID_glTexImage2D ].FuncAddr, PatchData[ ID_glTexImage2D ].LockJmp );
   try
@@ -78,11 +77,7 @@ begin
       if( f = GL_RGB  ) then bpp := 3
       else if( f = GL_RGBA ) then bpp := 4
       else bpp := 0;
-
-      fs := TFileStream.Create( 'i:/tmp/'+IntToStr(Level)+'__'+IntToStr( w ) + 'x' + IntToStr( h )+'='+IntToStr(hash(p, bpp*w*h))+'.raw', fmCreate );
-      fs.Write( p^, bpp * w * h );
-      fs.Free;
-
+      
       // is it font?
       if hash( p, w*h*bpp ) = GUI_FONT_HASH then
         guiFont := id;
