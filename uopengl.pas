@@ -14,7 +14,7 @@ const
   GL_CLAMP_TO_EDGE = $812F; 
   GL_RGB8          = $8051;
   GL_BGR           = $80E0;  
-  GL_TEXTURE0_ARB  = $84C0;
+  GL_TEXTURE_BASE_LEVEL = $813C;
 
 implementation
 

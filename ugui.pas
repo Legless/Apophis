@@ -10,7 +10,7 @@ const
   GUI_FONT_HASH = 53933763;
 
 var
-  guiFont: cardinal;
+  guiFont: cardinal = 0;
   drawGui: boolean = false;
 
 implementation
