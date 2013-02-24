@@ -1,7 +1,7 @@
 unit uhooks;
 
 interface
-uses OpenGL, Windows, classes, sysUtils;
+uses OpenGL, Windows;
 
 implementation
 

@@ -18,7 +18,7 @@ const
 
 implementation
 
-uses ugui, math;
+uses ugui;
 
 procedure textOut( X, Y: integer; theText: string );
 var
