@@ -11,7 +11,8 @@ function new_SwapBuffers(DC: HDC): BOOL; stdcall;
 
 implementation
 
-uses upatch, uhash, ugui, uopengl, uutils, uwallhack, ustrings, uconfig;
+uses upatch, uhash, ugui, uopengl, uutils, uwallhack, ustrings, uconfig,
+  uglobal;
 
 procedure new_glDrawElements( mode: DWORD; count: integer; _type: DWORD; const indices: pointer ); stdcall;
 var
@@ -56,6 +57,7 @@ end;
 procedure new_glTexImage2D(target: GLenum; level, c: GLint; w, h: GLsizei; b: GLint; f, t: GLenum; p: Pointer); stdcall;
 var
   bpp, i, id: integer;
+  thash: integer;
 begin
   PatchLockJmp( PatchData[ ID_glTexImage2D ].FuncAddr, PatchData[ ID_glTexImage2D ].LockJmp );
   try
@@ -67,17 +69,28 @@ begin
       if( f = GL_RGB  ) then bpp := 3
       else if( f = GL_RGBA ) then bpp := 4
       else bpp := 0;
-      
+
+      // lol optimization
+      thash := hash( p, w * h * bpp );
+
       // is it font?
-      if hash( p, w*h*bpp ) = GUI_FONT_HASH then
+      if thash = GUI_FONT_HASH then
         guiFont := id;
 
       // is it keel texture?
       for i:=0 to KEEL_TEX-1 do
-        if hash( p, w * h * bpp ) = KEEL_HASH[ i ] then begin
+        if thash = KEEL_HASH[ i ] then begin
           KEEL_IDs[ i ] := id;
           break;
         end;
+
+      // need to be blured?
+      if ch_blurExpl then
+        for i:=0 to BLUR_TEX_COUNT-1 do
+          if thash = BLUR_TEX_HASH[ i ] then begin
+            glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 6 );
+            break;
+          end;
     end;
   finally
     PatchLockJmp( PatchData[ ID_glTexImage2D ].FuncAddr, OPCODE_JMP );

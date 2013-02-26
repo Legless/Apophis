@@ -37,12 +37,13 @@ var
 
 implementation
 
-uses uutils, ustrings, uopengl, uwallhack;
+uses uutils, ustrings, uopengl, uwallhack, uglobal;
         
 constructor TConfig.Create;
 begin
-  Self.AddVar( 'Wallhack', @wh_Mode      , vtInt, @WH_MODE_NAMES , WH_MODE_COUNT       );
-  Self.AddVar( 'WH Color', @wh_EnemyColor, vtInt, @WH_COLOR_NAMES, WH_COLORS_COUNT - 1 );
+  Self.AddVar( 'Wallhack',        @wh_Mode      , vtInt, @WH_MODE_NAMES , WH_MODE_COUNT       );
+  Self.AddVar( 'WH Color',        @wh_EnemyColor, vtInt, @WH_COLOR_NAMES, WH_COLORS_COUNT - 1 );
+  Self.AddVar( 'Blur explosions', @ch_blurExpl  , vtBool );
 end;
 
 procedure TConfig.Next;
@@ -107,8 +108,8 @@ begin
   glColor4f( 0, 0.2, 0, 0.5 );
   glBegin( GL_QUADS );
     glVertex2f( 10 , 100 );
-    glVertex2f( 210, 100 );
-    glVertex2f( 210, 100 + Length( FVars ) * 10 );
+    glVertex2f( 250, 100 );
+    glVertex2f( 250, 100 + Length( FVars ) * 10 );
     glVertex2f( 10 , 100 + Length( FVars ) * 10 );
   glEnd;
                                                  

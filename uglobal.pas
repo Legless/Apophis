@@ -1,6 +1,7 @@
 unit uglobal;
 
 interface
+uses openGL;
 
 const
   KEEL_TEX = 2;
@@ -16,6 +17,11 @@ const
   );
 
   GUI_FONT_HASH = 53933763;
+
+  BLUR_TEX_COUNT = 11;
+  BLUR_TEX_HASH: array[ 0..BLUR_TEX_COUNT-1 ] of integer = (
+    1151379, 1237920, 1300936, 1595431, 1512662, 1798808, 1820256, 1871981, 1875423, 1648951, 1978346 
+  );
   
 var
   WH_MODE_NAMES: array[ 0..WH_MODE_COUNT ] of string = ( 'OFF', 'POINTS', 'LINES', 'MODEL' );
@@ -26,7 +32,9 @@ var
   wh_Mode: integer = 0;
   wh_affectProj: boolean = false;
   wh_enemyColor: integer = 0;
-  
+
+  ch_blurExpl: boolean = true;
+
   guiFont: cardinal = 0;
   drawGui: boolean = false;
 

@@ -5,7 +5,6 @@ uses
   upatch in 'upatch.pas',
   uhooks in 'uhooks.pas',
   uhash in 'uhash.pas',
-  uwallhack in 'uwallhack.pas',
   ugui in 'ugui.pas',
   uinput in 'uinput.pas',
   ustrings in 'ustrings.pas',
