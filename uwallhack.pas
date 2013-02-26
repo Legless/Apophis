@@ -7,9 +7,6 @@ const
   KEEL_TEX = 2;
   KEEL_HASH: array[ 0..KEEL_TEX-1 ] of integer = ( 22558390, 113339075 );
 
-  PROJ_COUNT = 2;                                   // nade, plasma
-  PROJ_HASH: array[ 0..PROJ_COUNT-1 ] of integer = ( 362265, 1497631 );
-
   WH_MODE_COUNT = 3;
   WH_OFF = -1;
   WH_MODES: array[ 0..WH_MODE_COUNT ] of integer = ( WH_OFF, GL_POINTS, GL_LINE_LOOP, GL_TRIANGLES );
@@ -21,7 +18,6 @@ const
 
 var
   KEEL_IDs: array[ 0..KEEL_TEX-1 ] of integer;
-  PROJ_IDs: array[ 0..PROJ_COUNT-1 ] of integer;
   
   wh_Mode: integer = 0;
   wh_affectProj: boolean = false;
@@ -39,21 +35,16 @@ uses uhooks, upatch, uhash, ugui, uopengl, uutils;
 procedure new_glDrawElements( mode: DWORD; count: integer; _type: DWORD; const indices: pointer ); stdcall;
 var
   i, id: integer;
-  isEnemy, isProj: boolean;
+  isEnemy: boolean;
 begin
   PatchLockJmp( PatchData[ ID_glDrawElements ].FuncAddr, PatchData[ ID_glDrawElements ].LockJmp );
   try
     isEnemy := false;
-    isProj := false;
 
     glGetIntegerv( $8069, @id );
     for i:=0 to KEEL_TEX-1 do
       if( id = KEEL_IDs[ i ] ) then
         isEnemy := true;
-
-    for i:=0 to PROJ_COUNT-1 do
-      if( id = PROJ_IDs[ i ] ) then
-        isProj := true;
 
     // Since wh uses stencil buffer, be sure to have
     // set /r_stencilbits 8 in your ql config
@@ -61,7 +52,7 @@ begin
     
     // wallhack
     if ( wh_Mode <> WH_OFF ) then
-      if ( ( isEnemy ) or ( isProj and wh_affectProj ) ) then begin
+      if ( isEnemy ) then begin
         glDisable( GL_DEPTH_TEST );
         glStencilFunc( GL_NEVER, 1, 255 );
         glStencilOp( GL_REPLACE, GL_KEEP, GL_KEEP );
@@ -104,13 +95,6 @@ begin
       for i:=0 to KEEL_TEX-1 do
         if hash( p, w * h * bpp ) = KEEL_HASH[ i ] then begin
           KEEL_IDs[ i ] := id;
-          break;
-        end;
-
-      // is it projectile?
-      for i:=0 to PROJ_COUNT-1 do
-        if hash( p, w * h * bpp ) = PROJ_HASH[ i ] then begin
-          PROJ_IDs[ i ] := id;
           break;
         end;
     end;
