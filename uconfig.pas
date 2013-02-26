@@ -37,7 +37,7 @@ var
 
 implementation
 
-uses uutils, ustrings, uopengl, uwallhack, uglobal;
+uses uutils, ustrings, uopengl, uglobal;
         
 constructor TConfig.Create;
 begin

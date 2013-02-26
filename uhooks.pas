@@ -11,7 +11,7 @@ function new_SwapBuffers(DC: HDC): BOOL; stdcall;
 
 implementation
 
-uses upatch, uhash, ugui, uopengl, uutils, uwallhack, ustrings, uconfig,
+uses upatch, uhash, ugui, uopengl, uutils, uconfig,
   uglobal;
 
 procedure new_glDrawElements( mode: DWORD; count: integer; _type: DWORD; const indices: pointer ); stdcall;

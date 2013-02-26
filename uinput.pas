@@ -7,7 +7,7 @@ function new_DefWindowProc(hWnd: HWND; Msg: UINT; wParam: WPARAM; lParam: LPARAM
 
 implementation
 
-uses uwallhack, upatch, ugui, uconfig, uglobal;
+uses upatch, ugui, uconfig, uglobal;
                  
 function new_DefWindowProc(hWnd: HWND; Msg: UINT; wParam: WPARAM; lParam: LPARAM): LRESULT; stdcall;
 begin

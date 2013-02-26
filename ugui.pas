@@ -8,7 +8,7 @@ procedure gui_finish;
 
 implementation
 
-uses upatch, uinput, uopengl, uwallhack, ustrings, uutils, uconfig;
+uses upatch, uinput, uopengl, uutils, uconfig;
 
 procedure gui_start;
 begin

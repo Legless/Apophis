@@ -7,7 +7,6 @@ uses
   uhash in 'uhash.pas',
   ugui in 'ugui.pas',
   uinput in 'uinput.pas',
-  ustrings in 'ustrings.pas',
   uopengl in 'uopengl.pas',
   uutils in 'uutils.pas',
   uconfig in 'uconfig.pas',

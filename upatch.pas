@@ -36,7 +36,7 @@ function InitPatch( aModule: PChar; aFunc: PChar; aHook: pointer ): integer;
 
 implementation
 
-uses uhooks, uwallhack, ugui, uinput;
+uses uhooks, ugui, uinput;
                 
 procedure PatchSetJmp( FuncAddr: Pointer; NewData: TJmpRec );
 var
