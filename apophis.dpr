@@ -11,7 +11,8 @@ uses
   ustrings in 'ustrings.pas',
   uopengl in 'uopengl.pas',
   uutils in 'uutils.pas',
-  uconfig in 'uconfig.pas';
+  uconfig in 'uconfig.pas',
+  uglobal in 'uglobal.pas';
 
 procedure DLLEntryPoint(dwReason: DWORD);
 begin
